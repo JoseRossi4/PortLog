@@ -7,6 +7,7 @@ using Dominio;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace Repositorios
 {
@@ -20,7 +21,7 @@ namespace Repositorios
                 if (ValidarRol(obj.Rol) && ValidateCedula(Convert.ToString(obj.Cedula)) && ValidatePassword(obj.Contrasenia)) {
 
                     //CAMBIAR XXXX POR LO QUE CORRESPONDA!!!!!!!
-                    string strCon = "Data Source=(local)\\SQLEXPRESS; Initial Catalog=PortLog; Integrated Security=SSPI;";
+                    string strCon = "Data Source=(local)\\SQLEXPRESS; Initial Catalog=PortLog5; Integrated Security=SSPI;";
                     SqlConnection con = new SqlConnection(strCon);
 
                     string sql = "insert into Usuarios(cedula, contraseña, rol) values(@cedula, @pw, @rol);";
@@ -64,7 +65,7 @@ namespace Repositorios
             Usuario usuarioExistente = null;
 
             //CAMBIAR XXXX POR LO QUE CORRESPONDA!!!!!!!
-            string strCon = "Data Source=(local)\\SQLEXPRESS; Initial Catalog=PortLog; Integrated Security=SSPI;";
+            string strCon = "Data Source=(local)\\SQLEXPRESS; Initial Catalog=PortLog5; Integrated Security=SSPI;";
             SqlConnection con = new SqlConnection(strCon);
 
             string sql = "select * from Usuarios where cedula=@ci;";
@@ -171,7 +172,40 @@ namespace Repositorios
             return esValido;
         }
 
+        public string GenerarArchivo()
+        {
+            string devolucion = "";
+            //CAMBIAR XXXX POR LO QUE CORRESPONDA!!!!!!!
+            string strCon = "Data Source=(local)\\SQLEXPRESS; Initial Catalog=PortLog5; Integrated Security=SSPI;";
+            SqlConnection con = new SqlConnection(strCon);
 
+            string sql = "select * from Usuarios;";
+            SqlCommand com = new SqlCommand(sql, con);
+
+            try
+            {
+               
+                con.Open();
+                SqlDataReader reader = com.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    devolucion += reader.GetInt32(0).ToString() + "#" + reader.GetString(1) + "#" + reader.GetString(2)+ "\n";
+                }
+                con.Close();
+               
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                if (con.State == ConnectionState.Open) con.Close();
+            }
+
+            return devolucion;
+        }
     }
 
 }

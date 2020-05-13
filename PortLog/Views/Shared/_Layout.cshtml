@@ -19,14 +19,19 @@
                 </button>
                 @Html.ActionLink("PortLog", "Index", "Usuario", new { area = "" }, new { @class = "navbar-brand" })
             <ul class="nav navbar-nav">
-                @if (Session["rol"].ToString() == "admin")
-                {
-                    <li><a href="/Usuario/Alta">Alta</a></li>
-                }
                 @if (Session["rol"] != null)
                 {
-                    <li><a href="/usuario/salir">Salir</a></li>
-                }
+                    if (Session["rol"].ToString() == "admin")
+                    {
+                        <li><a href="/Usuario/Alta">Alta Usuario</a></li>
+                        <li><a href="/Importacion/PrevisionGanancia">Prevision Ganancia Por Cliente</a></li>
+                    }
+                    <li><a href="/Cliente/Alta">Alta Cliente</a></li>
+                    <li><a href="/Producto/AltaProducto">Alta Producto</a></li>
+                    <li><a href="/Producto/TraerProductos">Listar Productos</a></li>
+                    <li><a href="/Usuario/GenerarArchivos">Generar Archivos</a></li>
+                    <li><a href="/usuario/salir">Cerrar Sesion</a></li>
+                    }
             </ul>
 
             </div>

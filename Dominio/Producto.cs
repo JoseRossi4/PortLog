@@ -1,4 +1,5 @@
-﻿using System;
+﻿//CLASE PRODUCTO
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,24 +10,10 @@ namespace Dominio
     public class Producto
     {
         private int codigo;
-        private int nombre;
+        private string nombre;
         private Cliente cliente;
-        private float pesoUnidad;
-        private float precio;
 
-        public float Precio
-        {
-            get { return precio; }
-            set { precio = value; }
-        }
-
-
-        public float PesoUnidad
-        {
-            get { return pesoUnidad; }
-            set { float pesoUnidad = value; }
-        }
-
+        public float PesoUnidad { get; set; }
 
         public Cliente Cliente
         {
@@ -35,7 +22,7 @@ namespace Dominio
         }
 
 
-        public int Nombre
+        public string Nombre
         {
             get { return nombre; }
             set { nombre = value; }

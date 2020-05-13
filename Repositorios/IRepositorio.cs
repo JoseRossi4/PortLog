@@ -13,5 +13,6 @@ namespace Repositorios
         bool Modificacion(T obj);
         List<T> TraerTodo();
         T BuscarPorId(int id);
+        string GenerarArchivo();
     }
 }

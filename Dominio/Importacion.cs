@@ -1,4 +1,5 @@
-﻿using System;
+﻿//CLASE IMPORTACION
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace Dominio
         private Producto producto;
         private int cantidad;
         private int codigoImp;
+        public decimal PrecioPorUnidad { get; set; }
 
         public DateTime FechaSalida
         {
@@ -45,5 +47,21 @@ namespace Dominio
             set { fechaIngreso = value; }
         }
 
+        public decimal CalcularCosto() {
+            int cantidadDias = 0;
+            cantidadDias = ((TimeSpan)(fechaSalidaPrevista - fechaIngreso)).Days;
+            decimal costo = Cantidad * PrecioPorUnidad * cantidadDias;
+            return costo;
+        }
+
+        public bool EsCalculable() {
+            bool esCalculable = false;            
+            if (fechaIngreso < DateTime.Now && fechaSalidaPrevista > DateTime.Now) {
+                esCalculable = true;
+            }
+            return esCalculable;
+        }
+
+       
     }
 }

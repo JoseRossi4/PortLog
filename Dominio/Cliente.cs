@@ -1,4 +1,6 @@
-﻿using System;
+﻿//CLASE CLIENTE
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +10,14 @@ namespace Dominio
 {
     public class Cliente
     {
-        private int rut;
+        private string rut;
         private string nombre;
+        private DateTime antiguedadFecha;
+        public DateTime AntiguedadFecha
+        {
+            get { return antiguedadFecha;}
+            set { antiguedadFecha = value;} 
+        }
 
         public string Nombre
         {
@@ -18,10 +26,17 @@ namespace Dominio
         }
 
 
-        public int Rut
+        public string Rut
         {
             get { return rut; }
             set { rut = value; }
+        }
+
+        public int CantidadDias() {
+            int i = 0;
+            TimeSpan iT = DateTime.Today - antiguedadFecha;
+            i = iT.Days;
+            return i;
         }
 
     }

@@ -5,10 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 using Repositorios;
 using Dominio;
+using System.IO;
 
 
 namespace PortLog.Controllers
-{
+{   
     public class UsuarioController : Controller
     {
         
@@ -144,6 +145,73 @@ namespace PortLog.Controllers
             else
             {
                 return Redirect("/usuario/bienvenido");
+            }
+
+        }
+
+
+        public ActionResult GenerarArchivos()
+        {
+
+            if (Session["rol"].ToString() == null)
+            {
+                return Redirect("/usuario/bienvenido");
+            }
+            else
+            {
+                string rutaRaizAppWeb = HttpRuntime.AppDomainAppPath;
+                string directorio = "Archivos";
+
+                //genera archivo clientes
+                string stringCli = FachadaDistribuidora.GenerarArchivoCliente();
+                
+                string archivoClientes = "clientes.txt";
+                string rutaCliente = rutaRaizAppWeb + directorio + "\\" + archivoClientes;
+                FileStream fsCliente = new FileStream(rutaCliente, FileMode.Create);
+                StreamWriter swCliente = new StreamWriter(fsCliente);
+                swCliente.Write(stringCli);
+                swCliente.Close();
+
+                //genera archivo descuento
+                string stringDesc = FachadaDistribuidora.GenerarArchivoDescuento();
+                string archivoDesc = "descuentos.txt";
+                string rutaDesc = rutaRaizAppWeb + directorio + "\\" + archivoDesc;
+                FileStream fsDescuento = new FileStream(rutaDesc, FileMode.Create);
+                StreamWriter swDescuento = new StreamWriter(fsDescuento);
+                swDescuento.Write(stringDesc);
+                swDescuento.Close();
+
+                //genera archivo importacion
+                string stringImpo = FachadaDistribuidora.GenerarArchivoImportacion();
+                string archivoImpo = "importacion.txt";
+                string rutaImpo = rutaRaizAppWeb + directorio + "\\" + archivoImpo;
+                FileStream fsImportacion = new FileStream(rutaImpo, FileMode.Create);
+                StreamWriter swImportacion = new StreamWriter(fsImportacion);
+                swImportacion.Write(stringImpo);
+                swImportacion.Close();
+
+                //genera archivo producto
+                string stringProd = FachadaDistribuidora.GenerarArchivoProducto();
+                string archivoProd = "productos.txt";
+                string rutaProd = rutaRaizAppWeb + directorio + "\\" + archivoProd;
+                FileStream fsProducto = new FileStream(rutaProd, FileMode.Create);
+                StreamWriter swProducto = new StreamWriter(fsProducto);
+                swProducto.Write(stringProd);
+                swProducto.Close();
+
+                //genera archivo usuario
+                string stringUsu = FachadaDistribuidora.GenerarArchivoUsuario();
+                string archivoUsu = "usuarios.txt";
+                string rutaUsu = rutaRaizAppWeb + directorio + "\\" + archivoUsu;
+                FileStream fsUsuario= new FileStream(rutaUsu, FileMode.Create);
+                StreamWriter swUsuario = new StreamWriter(fsUsuario);
+                swUsuario.Write(stringUsu);
+                swUsuario.Close();
+
+
+
+                ViewBag.Mensaje = "Exito";
+                return View();
             }
 
         }

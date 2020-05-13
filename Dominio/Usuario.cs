@@ -1,4 +1,5 @@
-﻿using System;
+﻿//CLASE USUARIO
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -39,7 +40,7 @@ namespace Dominio
             {
                return false;
             }
-            var hasMiniMaxChars = new Regex(@".{6,15}");
+            var hasMiniMaxChars = new Regex(@".{7,9}");
             if (!hasMiniMaxChars.IsMatch(input))
             {
                 return false;
